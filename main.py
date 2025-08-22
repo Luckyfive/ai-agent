@@ -8,9 +8,12 @@ api_key = os.getenv("GEMINI_API_KEY")
 client = genai.Client(api_key=api_key)
 
 def main():
-    if len(sys.argv) != 2:
-        print("Usage: python main.py <input>")
+    if len(sys.argv) < 2:
+        print("Usage: python main.py <input> <optional_flag>")
         sys.exit(1)
+    
+    if len(sys.argv) == 3:
+        optional_flag = sys.argv[2]
 
     input_text = sys.argv[1]
 
@@ -24,7 +27,10 @@ def main():
         contents=messages,
     )
     print(answer.text)
-    print(f"Prompt tokens: {answer.usage_metadata.prompt_token_count}")
-    print(f"Response tokens: {answer.usage_metadata.candidates_token_count}")
+    if optional_flag == "--verbose":
+        print(f"User prompt: {sys.argv[1]}")
+        print(f"Prompt tokens: {answer.usage_metadata.prompt_token_count}")
+        print(f"Response tokens: {answer.usage_metadata.candidates_token_count}")
+
 if __name__ == "__main__":
     main()
