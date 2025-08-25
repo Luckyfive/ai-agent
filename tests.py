@@ -1,21 +1,29 @@
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from functions.write_file import write_file
+from functions.run_python import run_python_file
 
 
 def run():
-    print('write_file("calculator", "lorem.txt", "wait, this isn\'t lorem ipsum")')
-    result1 = write_file("calculator", "lorem.txt", "wait, this isn't lorem ipsum")
+    print('run_python_file("calculator", "main.py")')
+    result1 = run_python_file("calculator", "main.py")
     print(result1)
 
-    print('write_file("calculator", "pkg/morelorem.txt", "lorem ipsum dolor sit amet")')
-    result2 = write_file("calculator", "pkg/morelorem.txt", "lorem ipsum dolor sit amet")
+    print('run_python_file("calculator", "main.py", ["3 + 5"])')
+    result2 = run_python_file("calculator", "main.py", ["3 + 5"])
     print(result2)
 
-    print('write_file("calculator", "/tmp/temp.txt", "this should not be allowed")')
-    result3 = write_file("calculator", "/tmp/temp.txt", "this should not be allowed")
+    print('run_python_file("calculator", "tests.py")')
+    result3 = run_python_file("calculator", "tests.py")
     print(result3)
+
+    print('run_python_file("calculator", "../main.py")')
+    result4 = run_python_file("calculator", "../main.py")
+    print(result4)
+
+    print('run_python_file("calculator", "nonexistent.py")')
+    result5 = run_python_file("calculator", "nonexistent.py")
+    print(result5)
 
 
 if __name__ == "__main__":
